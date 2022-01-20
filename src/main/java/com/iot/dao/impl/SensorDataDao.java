@@ -82,5 +82,23 @@ public class SensorDataDao extends AbstractDao<Long, SensorDataEntity> implement
 
 		return result;
 	}
+	
+	@Override
+	public Float getSumDataPropByMonth(String prop, String date) {
+		Float result = 0f;
+		try {
+			if (prop.equals("month")) {
+				String sql = "Select sum(sensor_data.value) from sensor_data where month(sensor_data.time)=:month";
+				Query q = entityManager.createNativeQuery(sql);
+				q.setParameter("month", date);
+				Object ob=(Object) q.getSingleResult();
+				result=Float.parseFloat(String.valueOf(ob));
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+
+		return result;
+	}
 
 }

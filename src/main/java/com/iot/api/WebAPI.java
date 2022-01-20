@@ -562,7 +562,21 @@ public class WebAPI {
 	@GetMapping("/api/device/sumdata/{prop}/{date}")
 	public Float getSumDataProp(@PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
 		Float result = 0f;
-		result=sensorDataService.getSumDataProp(prop, date);
+		result = sensorDataService.getSumDataProp(prop, date);
+		return result;
+	}
+	
+	@GetMapping("/api/device/alldatabymonth/{prop}/{date}")
+	public List<Float> getAllDataSensorWithPropByYear(@PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
+//		return sensorService.getAllSensorData(id, prop, date);
+		List<Float> result = new ArrayList<Float>();
+		
+		for(int i = 1; i <= 12; i++) {
+			String newDate = String.valueOf(i) + "-" + date;
+			Float res = sensorDataService.getSumDataPropByMonth(prop, newDate);
+			result.add(res);
+		}
+		
 		return result;
 	}
 }
