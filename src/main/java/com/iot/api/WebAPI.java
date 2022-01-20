@@ -2,6 +2,7 @@ package com.iot.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -601,8 +602,11 @@ public class WebAPI {
 			String newDate = String.valueOf(i) + "-" + date;
 			Float res = 0f;
 			for(int j = 0; j < devices.size(); j++) {
-				Long id = devices.get(j).getId();
-				res += sensorDataService.getSumDataUserPropByMonth(id, prop, newDate);
+				Set<SensorDto> sensors = devices.get(j).getSensorList();
+				for(SensorDto sensor: sensors) {
+					Long id = sensor.getId();
+					res += sensorDataService.getSumDataUserPropByMonth(id, prop, newDate);
+				}
 			}
 			result.add(res);
 		}
