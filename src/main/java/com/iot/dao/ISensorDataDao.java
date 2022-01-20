@@ -9,5 +9,8 @@ public interface ISensorDataDao extends GenericDao<Long, SensorDataEntity>{
 	List<SensorDataEntity> findAllDataLastSensorId(List<Long> ids);
 	Float getSumDataProp(String prop, String date);
 	Float getSumDataPropByMonth(String prop, String data);
-	Float getSumDataUserPropByMonth(Long id, String prop, String data);
+	List<Long> getDeviceByIdUser(Long id);
+	List<Long> getSensorIdByIdDeviceId(Long id);
+	Float getSensorDataSensorId(Long idSensor, String month, String year);
+	Float getDataSensorUserByMonth(Long id, String month, String year);
 }

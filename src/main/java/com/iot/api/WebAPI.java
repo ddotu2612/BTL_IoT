@@ -581,33 +581,13 @@ public class WebAPI {
 		return result;
 	}
 	
-	@GetMapping("/api/device/alldatauserbymonth/{prop}/{date}")
-	public List<Float> getAllDataSensorUserWithPropByYear(@PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
-		
-		List<DeviceDto> devices = new ArrayList<DeviceDto>();
-		String user_token = "";
-		String token = "";
-		String bearerToken = request.getHeader("Authorization");
-		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-			token = bearerToken.substring(7);
-			if (tokenProvider.validateJwtToken(token)) {
-				user_token = tokenProvider.getUserNameFromJwtToken(token);
-				devices = deviceService.getListDeviceByUser(user_token);
-			}
-		}
-		
+	@GetMapping("/api/device/alldata/{id}/{year}")
+	public List<Float> getAllDataUser(@PathVariable("id") Long id, @PathVariable("year") String year) {
+//		return sensorService.getAllSensorData(id, prop, date);
 		List<Float> result = new ArrayList<Float>();
 		
 		for(int i = 1; i <= 12; i++) {
-			String newDate = String.valueOf(i) + "-" + date;
-			Float res = 0f;
-			for(int j = 0; j < devices.size(); j++) {
-				Set<SensorDto> sensors = devices.get(j).getSensorList();
-				for(SensorDto sensor: sensors) {
-					Long id = sensor.getId();
-					res += sensorDataService.getSumDataUserPropByMonth(id, prop, newDate);
-				}
-			}
+			Float res = sensorDataService.getDateUserByMonth(id, String.valueOf(i), year);
 			result.add(res);
 		}
 		

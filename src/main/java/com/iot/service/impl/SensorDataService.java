@@ -77,7 +77,12 @@ public class SensorDataService implements ISensorDataService {
 	}
 	
 	@Override
-	public Float getSumDataUserPropByMonth(Long id, String prop, String data) {
-		return sensorDataDao.getSumDataUserPropByMonth(id, prop, data);
+	public List<Long> getDeviceByIdUser(Long id) {
+		return sensorDataDao.getDeviceByIdUser(id);
+	}
+	
+	@Override
+	public Float getDateUserByMonth(Long id, String month, String year) {
+		return sensorDataDao.getDataSensorUserByMonth(id, month, year);
 	}
 }
