@@ -9,4 +9,5 @@ public interface ISensorDataService {
 	List<SensorDataDto> findAllDataLastSensorId(Long deviceID);
 	Float getSumDataProp(String prop, String date);
 	Float getSumDataPropByMonth(String prop, String data);
+	Float getSumDataUserPropByMonth(Long id, String prop, String date);
 }

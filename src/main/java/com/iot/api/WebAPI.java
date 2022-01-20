@@ -567,13 +567,43 @@ public class WebAPI {
 	}
 	
 	@GetMapping("/api/device/alldatabymonth/{prop}/{date}")
-	public List<Float> getAllDataSensorWithPropByYear(@PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
+	public List<Float> getAllDataSensorWithPropByYear(@PathVariable("id") Long id, @PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
 //		return sensorService.getAllSensorData(id, prop, date);
 		List<Float> result = new ArrayList<Float>();
 		
 		for(int i = 1; i <= 12; i++) {
 			String newDate = String.valueOf(i) + "-" + date;
 			Float res = sensorDataService.getSumDataPropByMonth(prop, newDate);
+			result.add(res);
+		}
+		
+		return result;
+	}
+	
+	@GetMapping("/api/device/alldatauserbymonth/{prop}/{date}")
+	public List<Float> getAllDataSensorUserWithPropByYear(@PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
+		
+		List<DeviceDto> devices = new ArrayList<DeviceDto>();
+		String user_token = "";
+		String token = "";
+		String bearerToken = request.getHeader("Authorization");
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+			token = bearerToken.substring(7);
+			if (tokenProvider.validateJwtToken(token)) {
+				user_token = tokenProvider.getUserNameFromJwtToken(token);
+				devices = deviceService.getListDeviceByUser(user_token);
+			}
+		}
+		
+		List<Float> result = new ArrayList<Float>();
+		
+		for(int i = 1; i <= 12; i++) {
+			String newDate = String.valueOf(i) + "-" + date;
+			Float res = 0f;
+			for(int j = 0; j < devices.size(); j++) {
+				Long id = devices.get(j).getId();
+				res += sensorDataService.getSumDataUserPropByMonth(id, prop, newDate);
+			}
 			result.add(res);
 		}
 		
