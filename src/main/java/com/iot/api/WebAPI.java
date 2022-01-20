@@ -568,7 +568,7 @@ public class WebAPI {
 	}
 	
 	@GetMapping("/api/device/alldatabymonth/{prop}/{date}")
-	public List<Float> getAllDataSensorWithPropByYear(@PathVariable("id") Long id, @PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
+	public List<Float> getAllDataSensorWithPropByYear(@PathVariable("prop") String prop, @PathVariable("date") String date, HttpServletRequest request) {
 //		return sensorService.getAllSensorData(id, prop, date);
 		List<Float> result = new ArrayList<Float>();
 		
