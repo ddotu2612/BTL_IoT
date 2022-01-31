@@ -23,7 +23,7 @@ public class JwtTokenProvider {
 	private static final Logger logger = Logger.getLogger(JwtTokenProvider.class);
 
 	// Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
-	private final String JWT_SECRET = "jwt_tu_2901";
+	private final String JWT_SECRET = "jwt_tu_2612";
 
 	// Thời gian có hiệu lực của chuỗi jwt
 	private final long JWT_EXPIRATION = 604800000L;//chia 1000 sẽ ra giây

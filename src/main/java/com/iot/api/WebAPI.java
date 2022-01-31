@@ -593,4 +593,18 @@ public class WebAPI {
 		
 		return result;
 	}
+	
+	// Lay tong toan bo thiet bi trong cac nam tu nam 2000
+	@GetMapping("/api/device/alldata")
+	public List<Float> getAllData(){
+		List<Float> result = new ArrayList<Float>();
+		
+		for(int i = 2000; i <= 2022; i++) {
+			Float res = 0f;
+			res = sensorDataService.getSumDataProp("year", String.valueOf(i));
+			result.add(res);
+		}
+		
+		return result;
+	}
 }
