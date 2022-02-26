@@ -68,7 +68,7 @@ public class SensorService implements ISensorService {
 			}
 			entity.setSensorEntity(sensor);
 			entity.setTime(time);
-			entity.setValue(data.getValue());
+			entity.setValue(data.getValue() / 100);
 			sensorDataDao.save(entity);
 		}
 	}

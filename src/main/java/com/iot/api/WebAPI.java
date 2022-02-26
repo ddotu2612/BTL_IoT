@@ -599,7 +599,7 @@ public class WebAPI {
 	public List<Float> getAllData(){
 		List<Float> result = new ArrayList<Float>();
 		
-		for(int i = 2000; i <= 2022; i++) {
+		for(int i = 2019; i <= 2022; i++) {
 			Float res = 0f;
 			res = sensorDataService.getSumDataProp("year", String.valueOf(i));
 			result.add(res);

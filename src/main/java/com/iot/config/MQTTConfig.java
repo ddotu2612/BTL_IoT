@@ -286,7 +286,7 @@ public class MQTTConfig {
 							idtmp = getToken.getDeviceId();
 							DeviceEntity device = deviceDao.findByIdUser(idtmp);
 							if (device != null && device.getId() == getToken.getDeviceId()
-									&& device.getToken_collect_data().equals(getToken.getToken())) {
+									&& device.getToken_auth().equals(getToken.getToken())) {
 								// generate token collect data mới cho user:
 								AuthResponse res = new AuthResponse();
 								res.setDeviceId(device.getId());
